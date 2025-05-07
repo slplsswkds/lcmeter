@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/hw_rgr.iml" filepath="$PROJECT_DIR$/.idea/hw_rgr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/lcmeter.iml" filepath="$PROJECT_DIR$/.idea/lcmeter.iml" />
     </modules>
   </component>
 </project>

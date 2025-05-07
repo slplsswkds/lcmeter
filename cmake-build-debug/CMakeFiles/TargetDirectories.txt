@@ -1,0 +1,5 @@
+C:/Users/vdmar/maks/lcmeter/cmake-build-debug/CMakeFiles/hw_rgr.dir
+C:/Users/vdmar/maks/lcmeter/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/vdmar/maks/lcmeter/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/vdmar/maks/lcmeter/cmake-build-debug/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+C:/Users/vdmar/maks/lcmeter/cmake-build-debug/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir

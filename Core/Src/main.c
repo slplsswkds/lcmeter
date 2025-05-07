@@ -51,6 +51,8 @@ TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN PV */
 volatile uint16_t CNT_CHARGED = 0;
+
+volatile uint32_t TIM_UPDATES = false;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -62,6 +64,8 @@ static void MX_TIM4_Init(void);
 /* USER CODE BEGIN PFP */
 void measure_capacitance(void);
 void write_buffer_to_oled(const uint8_t* data);
+void print_capacitance_measurement_logs(const uint16_t CNT_CHARGED, const float charge_time_us,
+                                        const float capacitance);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -362,6 +366,14 @@ void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc)
     }
 }
 
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
+{
+    if (htim->Instance == TIM4)
+    {
+        // .........................
+    }
+}
+
 void write_buffer_to_oled(const uint8_t* data)
 {
     ssd1306_Clear();
@@ -379,10 +391,31 @@ void write_buffer_to_oled(const uint8_t* data)
     ssd1306_UpdateScreen();
 }
 
-void measure_capacitance(void)
+void print_capacitance_measurement_logs(const uint16_t CNT_CHARGED, const float charge_time_us,
+                                        const float capacitance)
 {
     constexpr uint8_t str_buf[90] = {0};
 
+    ssd1306_Clear();
+
+    snprintf((char*)str_buf, sizeof(str_buf), "CNTR = %d/%d", CNT_CHARGED, 32767);
+    ssd1306_SetCursor(0, 0);
+    ssd1306_WriteString((char*)str_buf, Font_7x10);
+
+    snprintf((char*)str_buf, sizeof(str_buf), "Tcharge = %u us", (int)charge_time_us);
+    ssd1306_SetCursor(0, 15);
+    ssd1306_WriteString((char*)str_buf, Font_7x10);
+
+    snprintf((char*)str_buf, sizeof(str_buf), "C = %u.%03u n F",
+             (int)capacitance, (int)(capacitance * 1000) % 1000);
+    ssd1306_SetCursor(0, 30);
+    ssd1306_WriteString((char*)str_buf, Font_7x10);
+
+    ssd1306_UpdateScreen();
+}
+
+void measure_capacitance(void)
+{
     HAL_TIM_Base_Start(&htim4);
     HAL_TIM_IC_Start(&htim4, TIM_CHANNEL_4);
 
@@ -403,22 +436,7 @@ void measure_capacitance(void)
     float charge_time_us = 1.0 / 0.6 * (float)CNT_CHARGED; // time = x * 10^(-6)
     float capacitance = charge_time_us / (2 * 10000); // R=10M Ohm - nF, R=100 Ohm - uF
 
-    ssd1306_Clear();
-
-    snprintf((char*)str_buf, sizeof(str_buf), "CNTR = %d/%d", CNT_CHARGED, 32767);
-    ssd1306_SetCursor(0, 0);
-    ssd1306_WriteString((char*)str_buf, Font_7x10);
-
-    snprintf((char*)str_buf, sizeof(str_buf), "Tcharge = %u us", (int)charge_time_us);
-    ssd1306_SetCursor(0, 15);
-    ssd1306_WriteString((char*)str_buf, Font_7x10);
-
-    snprintf((char*)str_buf, sizeof(str_buf), "C = %u.%03u n F",
-             (int)capacitance, (int)(capacitance * 1000) % 1000);
-    ssd1306_SetCursor(0, 30);
-    ssd1306_WriteString((char*)str_buf, Font_7x10);
-
-    ssd1306_UpdateScreen();
+    print_capacitance_measurement_logs(CNT_CHARGED, charge_time_us, capacitance);
 
     // Wait for the OnePulse period to complete
     while (__HAL_TIM_GET_FLAG(&htim4, TIM_FLAG_UPDATE) == RESET)
