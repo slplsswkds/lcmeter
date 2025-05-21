@@ -4,6 +4,6 @@
 Build type: Debug
 -- The ASM compiler identification is GNU
 -- Found assembler: C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/bin/arm-none-eabi-gcc.exe
--- Configuring done (0.8s)
+-- Configuring done (0.7s)
 -- Generating done (0.1s)
 -- Build files have been written to: C:/Users/vdmar/maks/lcmeter/cmake-build-debug

@@ -300,6 +300,10 @@ static void MX_TIM4_Init(void)
     {
         Error_Handler();
     }
+    if (HAL_TIM_OnePulse_Init(&htim4, TIM_OPMODE_SINGLE) != HAL_OK)
+    {
+        Error_Handler();
+    }
     sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
     sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
     if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
@@ -362,7 +366,7 @@ void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc)
 {
     if (hadc->Instance == ADC1)
     {
-        HAL_NVIC_DisableIRQ(ADC1_2_IRQn);
+        HAL_ADC_Stop_IT(&hadc1);
         CNT_CHARGED = htim4.Instance->CNT;
     }
 }
@@ -371,7 +375,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 {
     if (htim->Instance == TIM4)
     {
-        HAL_NVIC_DisableIRQ(ADC1_2_IRQn);
+        HAL_TIM_OnePulse_Stop_IT(&htim4, TIM_CHANNEL_4);
         PERIOD_ELAPSED = true;
     }
 }
@@ -434,16 +438,12 @@ void print_capacity_too_big()
 
 void measure_capacitance(void)
 {
-    HAL_TIM_Base_Start_IT(&htim4);
-    HAL_TIM_IC_Start_IT(&htim4, TIM_CHANNEL_4);
-
     CNT_CHARGED = 0;
     HAL_ADC_Start_IT(&hadc1);
-    HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
 
     __HAL_TIM_SET_COUNTER(&htim4, 0);
     PERIOD_ELAPSED = false;
-    HAL_TIM_OnePulse_Start(&htim4, TIM_CHANNEL_4);
+    HAL_TIM_OnePulse_Start_IT(&htim4, TIM_CHANNEL_4);
 
     // CNT_CHARGED sets in HAL_ADC_LevelOutOfWindowCallback
     while (CNT_CHARGED == 0 || !PERIOD_ELAPSED)
