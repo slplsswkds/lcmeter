@@ -121,7 +121,7 @@ CMAKE_FIND_PACKAGE_REDIRECTS_DIR:STATIC=C:/Users/vdmar/maks/lcmeter/cmake-build-
 CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/hw_rgr
 
 //make program
-CMAKE_MAKE_PROGRAM:FILEPATH=C:/PROGRA~1/JETBRA~1/CLION2~1.5/bin/ninja/win/x64/ninja.exe
+CMAKE_MAKE_PROGRAM:FILEPATH=C:/Program Files/JetBrains/CLion 2024.3.5/bin/ninja/win/x64/ninja.exe
 
 //Flags used by the linker during the creation of modules during
 // all build types.
@@ -231,15 +231,6 @@ hw_rgr_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 hw_rgr_SOURCE_DIR:STATIC=C:/Users/vdmar/maks/lcmeter
-
-//Value Computed by CMake
-stm32cubemx_BINARY_DIR:STATIC=C:/Users/vdmar/maks/lcmeter/cmake-build-debug/cmake/stm32cubemx
-
-//Value Computed by CMake
-stm32cubemx_IS_TOP_LEVEL:STATIC=OFF
-
-//Value Computed by CMake
-stm32cubemx_SOURCE_DIR:STATIC=C:/Users/vdmar/maks/lcmeter/cmake/stm32cubemx
 
 
 ########################

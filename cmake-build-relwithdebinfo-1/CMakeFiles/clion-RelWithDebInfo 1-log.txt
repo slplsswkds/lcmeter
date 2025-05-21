@@ -1,0 +1,9 @@
+"C:\Program Files\JetBrains\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=RelWithDebInfo "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2024.3.5/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\vdmar\maks\lcmeter -B C:\Users\vdmar\maks\lcmeter\cmake-build-relwithdebinfo-1
+-- The C compiler identification is GNU 14.2.1
+-- The CXX compiler identification is GNU 14.2.1
+Build type: RelWithDebInfo
+-- The ASM compiler identification is GNU
+-- Found assembler: C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/bin/arm-none-eabi-gcc.exe
+-- Configuring done (0.8s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/vdmar/maks/lcmeter/cmake-build-relwithdebinfo-1

@@ -1,9 +1,9 @@
-/opt/jetbrains/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Release --preset Release -S /home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr -B /home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/build/Release
-Build type: ReleasePreset CMake variables:
+"C:\Program Files\JetBrains\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release --preset Release -S C:\Users\vdmar\maks\lcmeter -B C:\Users\vdmar\maks\lcmeter\build\Release
+Preset CMake variables:
 
-  CMAKE_TOOLCHAIN_FILE:FILEPATH="/home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/cmake/gcc-arm-none-eabi.cmake"
+  CMAKE_TOOLCHAIN_FILE:FILEPATH="C:/Users/vdmar/maks/lcmeter/cmake/gcc-arm-none-eabi.cmake"
 
-
--- Configuring done (0.0s)
--- Generating done (0.0s)
--- Build files have been written to: /home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/build/Release
+Build type: Release
+-- Configuring done (0.1s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/vdmar/maks/lcmeter/build/Release

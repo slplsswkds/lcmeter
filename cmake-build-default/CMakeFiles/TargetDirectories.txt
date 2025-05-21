@@ -1,5 +1,0 @@
-/home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/cmake-build-default/CMakeFiles/hw_rgr.dir
-/home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/cmake-build-default/CMakeFiles/edit_cache.dir
-/home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/cmake-build-default/CMakeFiles/rebuild_cache.dir
-/home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/cmake-build-default/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
-/home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/cmake-build-default/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir

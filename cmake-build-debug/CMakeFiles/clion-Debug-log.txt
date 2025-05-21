@@ -1,3 +1,9 @@
-/opt/jetbrains/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/opt/jetbrains/apps/clion/bin/ninja/linux/x64/ninja -O2 -G Ninja -S /home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr -B /home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/cmake-build-debug
-CMake Error: Unknown argument -O2
-CMake Error: Run 'cmake --help' for all supported options.
+"C:\Program Files\JetBrains\CLion 2024.3.5\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2024.3.5/bin/ninja/win/x64/ninja.exe" -G Ninja -S C:\Users\vdmar\maks\lcmeter -B C:\Users\vdmar\maks\lcmeter\cmake-build-debug
+-- The C compiler identification is GNU 14.2.1
+-- The CXX compiler identification is GNU 14.2.1
+Build type: Debug
+-- The ASM compiler identification is GNU
+-- Found assembler: C:/Program Files (x86)/Arm GNU Toolchain arm-none-eabi/14.2 rel1/bin/arm-none-eabi-gcc.exe
+-- Configuring done (0.8s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/vdmar/maks/lcmeter/cmake-build-debug

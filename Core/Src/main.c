@@ -50,9 +50,10 @@ I2C_HandleTypeDef hi2c1;
 TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN PV */
+uint8_t str_buf[90] = {0};
 volatile uint16_t CNT_CHARGED = 0;
-
 volatile uint32_t TIM_UPDATES = false;
+volatile bool PERIOD_ELAPSED = false;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -370,7 +371,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 {
     if (htim->Instance == TIM4)
     {
-        // .........................
+        HAL_NVIC_DisableIRQ(ADC1_2_IRQn);
+        PERIOD_ELAPSED = true;
     }
 }
 
@@ -414,36 +416,66 @@ void print_capacitance_measurement_logs(const uint16_t CNT_CHARGED, const float 
     ssd1306_UpdateScreen();
 }
 
+void print_capacity_too_small()
+{
+    ssd1306_Clear();
+    ssd1306_SetCursor(0, 0);
+    snprintf((char*)str_buf, sizeof(str_buf), "Capacity too small");
+    ssd1306_WriteString((char*)str_buf, Font_7x10);
+}
+
+void print_capacity_too_big()
+{
+    ssd1306_Clear();
+    ssd1306_SetCursor(0, 0);
+    snprintf((char*)str_buf, sizeof(str_buf), "Capacity too big");
+    ssd1306_WriteString((char*)str_buf, Font_7x10);
+}
+
 void measure_capacitance(void)
 {
-    HAL_TIM_Base_Start(&htim4);
-    HAL_TIM_IC_Start(&htim4, TIM_CHANNEL_4);
+    HAL_TIM_Base_Start_IT(&htim4);
+    HAL_TIM_IC_Start_IT(&htim4, TIM_CHANNEL_4);
 
     CNT_CHARGED = 0;
-    HAL_ADC_Start(&hadc1);
+    HAL_ADC_Start_IT(&hadc1);
     HAL_NVIC_EnableIRQ(ADC1_2_IRQn);
 
     __HAL_TIM_SET_COUNTER(&htim4, 0);
+    PERIOD_ELAPSED = false;
     HAL_TIM_OnePulse_Start(&htim4, TIM_CHANNEL_4);
 
     // CNT_CHARGED sets in HAL_ADC_LevelOutOfWindowCallback
-    while (CNT_CHARGED == 0)
+    while (CNT_CHARGED == 0 || !PERIOD_ELAPSED)
     {
         __NOP();
     }
     HAL_ADC_Stop(&hadc1);
 
+    if (CNT_CHARGED == 0)
+    {
+        print_capacity_too_small();
+    }
+
+    if (CNT_CHARGED >= 32767)
+    {
+        print_capacity_too_big();
+    }
+
     float charge_time_us = 1.0 / 0.6 * (float)CNT_CHARGED; // time = x * 10^(-6)
     float capacitance = charge_time_us / (2 * 10000); // R=10M Ohm - nF, R=100 Ohm - uF
-
     print_capacitance_measurement_logs(CNT_CHARGED, charge_time_us, capacitance);
 
-    // Wait for the OnePulse period to complete
-    while (__HAL_TIM_GET_FLAG(&htim4, TIM_FLAG_UPDATE) == RESET)
+    // // Wait for the OnePulse period to complete
+    // while (__HAL_TIM_GET_FLAG(&htim4, TIM_FLAG_UPDATE) == RESET)
+    // {
+    //     __NOP();
+    // }
+
+    while (!PERIOD_ELAPSED)
     {
         __NOP();
     }
-
     HAL_TIM_Base_Stop(&htim4);
     HAL_TIM_IC_Stop(&htim4, TIM_CHANNEL_4);
 }

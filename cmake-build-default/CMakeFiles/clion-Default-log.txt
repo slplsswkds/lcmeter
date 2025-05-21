@@ -1,9 +1,0 @@
-/opt/jetbrains/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_MAKE_PROGRAM=/opt/jetbrains/apps/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr -B /home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/cmake-build-default
--- The C compiler identification is GNU 14.2.0
--- The CXX compiler identification is GNU 14.2.0
-Build type: Debug
--- The ASM compiler identification is GNU
--- Found assembler: /usr/bin/arm-none-eabi-gcc
--- Configuring done (0.2s)
--- Generating done (0.0s)
--- Build files have been written to: /home/maks/kpi/AJAX/HWWSS/rgr/hw_rgr/cmake-build-default
